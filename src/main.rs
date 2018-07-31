@@ -13,7 +13,7 @@ fn index(_req: &HttpRequest) -> &'static str {
 fn main() {
     simple_logger::init().unwrap();
 
-    info!("Starting server on localhost:80")
+    info!("Starting server on localhost:80");
     server::new(|| App::new().resource("/", |r| r.f(index)))
         .bind("127.0.0.1:80")
         .unwrap()
