@@ -1,0 +1,7 @@
+[package]
+name = "gcp-cd-codelab"
+version = "0.1.0"
+authors = ["Joylabs"]
+
+[dependencies]
+actix-web = "0.7"

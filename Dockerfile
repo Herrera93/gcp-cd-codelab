@@ -1,5 +1,8 @@
-FROM alpine
+FROM rust:1.27.2
 
-COPY gopath/bin/gcp-cd-codelab /go/bin/gcp-cd-codelab
+WORKDIR /usr/src/gcp-cd-codelab
+COPY . .
 
-ENTRYPOINT /go/bin/gcp-cd-codelab
+RUN cargo install
+
+CMD ["gcp-cd-codelab"]
