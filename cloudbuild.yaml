@@ -3,3 +3,4 @@ steps:
     args: ["build", "-t", "gcr.io/industrial-joy-185100/gcp-cd-codelab:$REVISION_ID", "-f", "Dockerfile", "."]
 images:
   - "gcr.io/industrial-joy-185100/gcp-cd-codelab:$REVISION_ID"
+timeout: 900s
