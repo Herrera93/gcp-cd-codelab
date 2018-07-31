@@ -7,17 +7,16 @@ use hyper::service::service_fn_ok;
 extern crate log;
 extern crate simple_logger;
 
-use log::Level;
-
 const PHRASE: &str = "Hello Joylabs from Rust!";
 
 fn hello(_req: Request<Body>) -> Response<Body> {
     info!("Executing hello");
+    warn!("Error");
     Response::new(Body::from(PHRASE))
 }
 
 fn main() {
-    simple_logger::init_with_level(Level::Info).unwrap();
+    simple_logger::init().unwrap();
 
     info!("Starting server on port 80");
 
