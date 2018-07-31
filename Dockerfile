@@ -1,8 +1,20 @@
-FROM rust:1.27.2
+FROM rust:1.27.2 as build
 
-WORKDIR /usr/src/gcp-cd-codelab
-COPY . .
+RUN USER=root cargo new --bin gcp-cd-codelab
+WORKDIR /gcp-cd-codelab
 
-RUN cargo install
+COPY ./Cargo.lock ./Cargo.lock
+COPY ./Cargo.toml ./Cargo.toml
 
-CMD ["gcp-cd-codelab"]
+RUN cargo build --release
+RUN rm src/*.rs
+
+COPY ./src ./src
+
+RUN cargo build --release
+
+FROM debian:jessie-slim
+
+COPY --from=build gcp-cd-codelab/target/release/gcp-cd-codelab .
+
+CMD ["./gcp-cd-codelab"]

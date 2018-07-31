@@ -1,8 +1,6 @@
 steps:
-  - name: 'gcr.io/cloud-builders/docker'
-    args: ['pull', 'gcr.io/industrial-joy-185100/gcp-cd-codelab']
   - name: "gcr.io/cloud-builders/docker"
-    args: ["build", "-t", "gcr.io/industrial-joy-185100/gcp-cd-codelab:$REVISION_ID", "-f", "Dockerfile", "--cache-from', 'gcr.io/industrial-joy-185100/gcp-cd-codelab","."]
+    args: ["build", "-t", "gcr.io/industrial-joy-185100/gcp-cd-codelab:$REVISION_ID", "-f", "Dockerfile", "."]
 images:
   - "gcr.io/industrial-joy-185100/gcp-cd-codelab:$REVISION_ID"
 timeout: 900s
