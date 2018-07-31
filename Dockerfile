@@ -9,7 +9,9 @@ COPY ./Cargo.toml ./Cargo.toml
 RUN cargo build --release
 RUN rm src/*.rs
 
-COPY ./src ./src
+COPY ./src ./prev_src
+RUN cp -r ./prev_src/. ./src 
+RUN cat ./src/main.rs
 
 RUN cargo build --release
 
