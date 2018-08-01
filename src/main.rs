@@ -7,11 +7,20 @@ use hyper::service::service_fn_ok;
 extern crate log;
 extern crate simple_logger;
 
+extern crate rand;
+
+use rand::prelude::*;
+
 const PHRASE: &str = "Hello Joylabs from Rust!";
 
 fn hello(_req: Request<Body>) -> Response<Body> {
     info!("Executing hello");
-    warn!("Error");
+    let mut rng = thread_rng();
+    let i = rng.gen_range(0, 3);
+    println!("Number is: {}", i);
+    if i == 0 {
+        warn!("Error");
+    } 
     Response::new(Body::from(PHRASE))
 }
 
