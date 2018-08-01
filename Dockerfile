@@ -6,7 +6,8 @@ RUN  apt-get update -y && \
      apt-get -y autoremove && \
      apt-get clean
 RUN apt-get install -y zip && rm -rf /var/lib/apt/lists/*
-RUN unzip target.zip
+RUN ls -l
+RUN unzip previous_target.zip
 
 FROM rust:1.27.2 as build
 WORKDIR /usr/src/gcp-cd-codelab
