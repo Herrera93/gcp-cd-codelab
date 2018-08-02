@@ -6,8 +6,15 @@ steps:
   - name: "gcr.io/cloud-builders/docker"
     args: ["build", "-t", "gcr.io/industrial-joy-185100/gcp-cd-codelab:$REVISION_ID", "-f", "Dockerfile", "."]
   - name: "gcr.io/cloud-builders/docker"
-    args: ["container", "ls"]
-  - name: gcr.io/cloud-builders/gsutil
+    entrypoint: "bash"
+    args: 
+      - "-c"
+      - |
+        id=$(docker create gcr.io/industrial-joy-185100/gcp-cd-codelab:$REVISION_ID)
+        docker cp $id:new_target.zip new_target.zip
+        docker cp $id:new_cargo.zip new_cargo.zip
+        docker rm -v $id
+  - name: "gcr.io/cloud-builders/gsutil"
     args: ["cp", "new_target.zip", "gs://rust-dependencies/target.zip"]
   - name: gcr.io/cloud-builders/gsutil
     args: ["cp", "new_cargo.zip", "gs://rust-dependencies/cargo.zip"]
