@@ -5,6 +5,8 @@ steps:
     args: ["cp", "gs://rust-dependencies/target.zip", "previous_target.zip"]
   - name: "gcr.io/cloud-builders/docker"
     args: ["build", "-t", "gcr.io/industrial-joy-185100/gcp-cd-codelab:$REVISION_ID", "-f", "Dockerfile", "."]
+  - name: "gcr.io/cloud-builders/docker"
+    args: ["container", "ls"]
   - name: gcr.io/cloud-builders/gsutil
     args: ["cp", "new_target.zip", "gs://rust-dependencies/target.zip"]
   - name: gcr.io/cloud-builders/gsutil
