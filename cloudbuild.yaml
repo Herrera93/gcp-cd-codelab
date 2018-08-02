@@ -1,5 +1,7 @@
 steps:
   - name: gcr.io/cloud-builders/gsutil
+    args: ["cp", "gs://rust-dependencies/cargo.zip", "previous_cargo.zip"]
+  - name: gcr.io/cloud-builders/gsutil
     args: ["cp", "gs://rust-dependencies/target.zip", "previous_target.zip"]
   - name: "gcr.io/cloud-builders/docker"
     args: ["build", "-t", "gcr.io/$PROJECT_ID/custom-script-test", "."]
@@ -7,6 +9,8 @@ steps:
     args: ["build", "-t", "gcr.io/industrial-joy-185100/gcp-cd-codelab:$REVISION_ID", "-f", "Dockerfile", "."]
   - name: gcr.io/cloud-builders/gsutil
     args: ["cp", "new_target.zip", "gs://rust-dependencies/target.zip"]
+  - name: gcr.io/cloud-builders/gsutil
+    args: ["cp", "new_cargo.zip", "gs://rust-dependencies/cargo.zip"]
 images:
   - "gcr.io/industrial-joy-185100/gcp-cd-codelab:$REVISION_ID"
 timeout: 900s
